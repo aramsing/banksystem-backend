@@ -23,7 +23,7 @@ public class Profile {
     private String password;
 
     @Column(unique = true, nullable = false)
-    @Email
+    @Email(message = "Your email")
     private String email;
 
     @Column(nullable = false)

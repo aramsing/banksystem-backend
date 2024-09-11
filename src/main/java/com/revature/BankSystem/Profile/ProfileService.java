@@ -1,6 +1,5 @@
 package com.revature.BankSystem.Profile;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +20,10 @@ public class ProfileService {
     // delete user profile
 
     public Profile createProfile(Profile profile) {
+        if (!isValidPassword(profile.getPassword())) {
+            return null;
+        }
+
         return profileRepository.save(profile);
     }
 
@@ -29,6 +32,10 @@ public class ProfileService {
     }
 
     public boolean updateProfile(Profile profile) {
+        if (!isValidPassword(profile.getPassword())) {
+            return false;
+        }
+
         profileRepository.saveAndFlush(profile);
         return true;
     }
