@@ -1,5 +1,7 @@
 package com.revature.BankSystem.Profile;
 
+import com.revature.BankSystem.Exceptions.InvalidInputException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +16,9 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
-    // create user profile
-    // log in
-    // update user profile
-    // delete user profile
-
     public Profile createProfile(Profile profile) {
-        if (!isValidPassword(profile.getPassword())) {
-            return null;
+        if (isValidPassword(profile.getPassword()) == false) {
+            throw new InvalidInputException("The password must be between 8-30 characters long and must have a lowercase letter, uppercase letter, number, and special character.");
         }
 
         return profileRepository.save(profile);
@@ -31,6 +28,7 @@ public class ProfileService {
         return profileRepository.findByUsernameAndPassword(username, password);
     }
 
+    @Transactional
     public boolean updateProfile(Profile profile) {
         if (!isValidPassword(profile.getPassword())) {
             return false;
@@ -40,18 +38,20 @@ public class ProfileService {
         return true;
     }
 
-    public boolean deleteProfile(int id) {
+    public boolean deleteProfileById(int id) {
         profileRepository.deleteById(id);
         return true;
     }
 
     public boolean isValidPassword(String password) {
-        String validPasswordRegex = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{10,30}";
+        String validPasswordRegex = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}";
 
         if (!password.matches(validPasswordRegex)) {
             return false;
         }
 
-        return true;
+        else {
+            return true;
+        }
     }
 }
