@@ -1,7 +1,7 @@
 package com.revature.BankSystem.Account;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 // LOMBOK ANNOTATIONS
 @Data // includes ToString, EqualsAndHashCode, Getter, and Setter Annotations
-@NoArgsConstructor // builds a no-args constructor to reduce boiler plate code
-@AllArgsConstructor // builds an all args constructor to reduce boiler plate code
+@NoArgsConstructor // builds a no-args constructor to reduce boiler-plate code
+@AllArgsConstructor // builds an all args constructor to reduce boiler-plate code
 
 // JAKARTA ANNOTATIONS
 @Entity // shows that the class represents a data object that should be persisted, requires an id for a primary key and a no-arg constructor
@@ -24,6 +24,9 @@ public class Account {
     private int holderId;
 
     @Column(nullable = false)
-    @Positive
-    private int balance;
+    @PositiveOrZero
+    private double balance; // should be double for calculations
+
+    @Column(nullable = false)
+    private String account_type; // works without enum
 }

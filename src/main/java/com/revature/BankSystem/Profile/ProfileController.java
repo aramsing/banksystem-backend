@@ -23,7 +23,7 @@ public class ProfileController {
         Profile newProfile = profileService.createProfile(profile);
 
         if (newProfile == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newProfile);
