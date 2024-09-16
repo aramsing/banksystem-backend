@@ -37,4 +37,22 @@ public class Profile {
 
     @Column(nullable = false)
     private String address;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole userType;
+
+    public enum UserRole {
+        CUSTOMER, EMPLOYEE
+    }
+
+    public Profile(String username, String password, String email, String firstname, String lastname, String address, UserRole userType) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.userType = userType;
+    }
 }
