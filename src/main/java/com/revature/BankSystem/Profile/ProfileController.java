@@ -30,8 +30,8 @@ public class ProfileController {
     }
 
     @GetMapping("?username={username}&password={password}")
-    public ResponseEntity<Optional<Profile>> getProfileByUsernameAndPassword(@PathVariable String username, @PathVariable String password) {
-        Optional<Profile> profile = profileService.getProfileByUsernameAndPassword(username, password);
+    public ResponseEntity<Optional<Profile>> getProfileByUsernameAndPassword(@PathVariable String username) {
+        Optional<Profile> profile = profileService.getProfileByUsername(username);
         return ResponseEntity.status(HttpStatus.OK).body(profile);
     }
 

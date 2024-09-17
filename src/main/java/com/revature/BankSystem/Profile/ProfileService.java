@@ -24,8 +24,8 @@ public class ProfileService {
         return profileRepository.save(profile);
     }
 
-    public Optional<Profile> getProfileByUsernameAndPassword(String username, String password) {
-        return profileRepository.findByUsernameAndPassword(username, password);
+    public Optional<Profile> getProfileByUsername(String username) {
+        return profileRepository.findByUsername(username);
     }
 
     @Transactional

@@ -20,8 +20,8 @@ public class CustomUserDetailService {
     private ProfileRepository profileRepository;
     private ArrayList<String> roles = new ArrayList<>();
 
-    public UserDetails loadUserByUsername(String username, String password) throws UsernameNotFoundException {
-        Profile profile = profileRepository.findByUsernameAndPassword(username, password).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Profile profile = profileRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         return new User(profile.getUsername(), profile.getPassword(), mapRolesToAuthorities(roles));
     }
 
