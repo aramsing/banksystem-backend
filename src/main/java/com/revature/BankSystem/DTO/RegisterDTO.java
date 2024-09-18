@@ -8,8 +8,8 @@ public class RegisterDTO {
     private String username;
     private String password;
     private String email;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     private String address;
     private Profile.UserRole userRole;
 }

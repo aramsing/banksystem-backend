@@ -18,29 +18,33 @@ public class ProfileService {
     }
 
     public Profile createProfile(Profile profile) {
-        if (isValidPassword(profile.getPassword()) == false) {
-            throw new InvalidInputException("The password must be between 8-30 characters long and must have a lowercase letter, uppercase letter, number, and special character.");
+        if (profile.getPassword().length() <= 8) {
+            throw new InvalidInputException("The password must be 8 characters long .");
         }
 
         return profileRepository.save(profile);
     }
 
-    public Optional<Profile> getProfileByUsername(String username) {
-        return profileRepository.findByUsername(username);
-    }
+//    public Optional<Profile> getProfileByUsername(String username) {
+//        return profileRepository.findByUsername(username);
+//    }
 
     public Profile getProfileById(int profileId) {
         return profileRepository.findById(profileId).orElseThrow(() -> new DataNotFoundException("No Profile found with profile Id Number" + profileId));
     }
 
-    public int lookupProfileIdByEmail(String email) {
-        return profileRepository.findByEmail(email).orElseThrow().getId();
+//    public int lookupProfileIdByEmail(String email) {
+//        return profileRepository.findByEmail(email).orElseThrow().getId();
+//    }
+
+    public int lookupProfileIdByUsername(String username) {
+        return profileRepository.findByUsername(username).orElseThrow().getId();
     }
 
     @Transactional
     public boolean updateProfile(Profile profile) {
-        if (!isValidPassword(profile.getPassword())) {
-            return false;
+        if (profile.getPassword().length() <= 8) {
+            throw new InvalidInputException("The password must be 8 characters long .");
         }
 
         profileRepository.saveAndFlush(profile);
@@ -52,15 +56,15 @@ public class ProfileService {
         return true;
     }
 
-    public boolean isValidPassword(String password) {
-        String validPasswordRegex = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}";
-
-        if (!password.matches(validPasswordRegex)) {
-            return false;
-        }
-
-        else {
-            return true;
-        }
-    }
+//    public boolean isValidPassword(String password) {
+//        String validPasswordRegex = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}";
+//
+//        if (!password.matches(validPasswordRegex)) {
+//            return false;
+//        }
+//
+//        else {
+//            return true;
+//        }
+//    }
 }
