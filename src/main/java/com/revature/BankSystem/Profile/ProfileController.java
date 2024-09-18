@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/profiles")
@@ -16,23 +15,6 @@ public class ProfileController {
     @Autowired
     public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
-    }
-
-    @PostMapping
-    public ResponseEntity<Profile> postCreateProfile(@RequestBody Profile profile) {
-        Profile newProfile = profileService.createProfile(profile);
-
-        if (newProfile == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(newProfile);
-    }
-
-    @GetMapping("?username={username}&password={password}")
-    public ResponseEntity<Optional<Profile>> getProfileByUsernameAndPassword(@PathVariable String username) {
-        Optional<Profile> profile = profileService.getProfileByUsername(username);
-        return ResponseEntity.status(HttpStatus.OK).body(profile);
     }
 
     @PutMapping

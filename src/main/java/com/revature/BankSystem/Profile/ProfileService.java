@@ -1,5 +1,6 @@
 package com.revature.BankSystem.Profile;
 
+import com.revature.BankSystem.Exceptions.DataNotFoundException;
 import com.revature.BankSystem.Exceptions.InvalidInputException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,14 @@ public class ProfileService {
 
     public Optional<Profile> getProfileByUsername(String username) {
         return profileRepository.findByUsername(username);
+    }
+
+    public Profile getProfileById(int profileId) {
+        return profileRepository.findById(profileId).orElseThrow(() -> new DataNotFoundException("No Profile found with profile Id Number" + profileId));
+    }
+
+    public int lookupProfileIdByEmail(String email) {
+        return profileRepository.findByEmail(email).orElseThrow().getId();
     }
 
     @Transactional
