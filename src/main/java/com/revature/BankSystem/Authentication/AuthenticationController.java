@@ -37,7 +37,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<Profile> register(@RequestBody RegisterDTO registerDTO) {
-        Profile registeredProfile = new Profile(registerDTO.getUsername(), passwordEncoder.encode(registerDTO.getPassword()), registerDTO.getEmail(), registerDTO.getFirstName(), registerDTO.getLastName(), registerDTO.getAddress(), registerDTO.getUserRole());
+        Profile registeredProfile = new Profile(registerDTO.getUsername(), passwordEncoder.encode(registerDTO.getPassword()), registerDTO.getEmail(), registerDTO.getFirstname(), registerDTO.getLastname(), registerDTO.getAddress(), registerDTO.getUserRole());
         Profile newProfile = profileService.createProfile(registeredProfile);
         return ResponseEntity.status(HttpStatus.OK).body(newProfile);
     }
