@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.Optional;
 
 @Service
@@ -25,17 +26,13 @@ public class ProfileService {
         return profileRepository.save(profile);
     }
 
-//    public Optional<Profile> getProfileByUsername(String username) {
-//        return profileRepository.findByUsername(username);
-//    }
-
     public Profile getProfileById(int profileId) {
         return profileRepository.findById(profileId).orElseThrow(() -> new DataNotFoundException("No Profile found with profile Id Number" + profileId));
     }
 
-//    public int lookupProfileIdByEmail(String email) {
-//        return profileRepository.findByEmail(email).orElseThrow().getId();
-//    }
+    public Profile getProfileByUsernameAndPassword(String username, String password) throws AuthenticationException {
+        return profileRepository.findByUsernameAndPassword(username, password).orElseThrow(() -> new AuthenticationException("Incorrect credentials"));
+    }
 
     public int lookupProfileIdByUsername(String username) {
         return profileRepository.findByUsername(username).orElseThrow().getId();
@@ -55,16 +52,4 @@ public class ProfileService {
         profileRepository.deleteById(id);
         return true;
     }
-
-//    public boolean isValidPassword(String password) {
-//        String validPasswordRegex = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}";
-//
-//        if (!password.matches(validPasswordRegex)) {
-//            return false;
-//        }
-//
-//        else {
-//            return true;
-//        }
-//    }
 }

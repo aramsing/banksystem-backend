@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// LOMBOK ANNOTATIONS
+//LOMBOK ANNOTATIONS
 @Data // includes ToString, EqualsAndHashCode, Getter, and Setter Annotations
 @NoArgsConstructor // builds a no-args constructor to reduce boiler plate code
 @AllArgsConstructor // builds an all args constructor to reduce boiler plate code
@@ -39,14 +39,9 @@ public class Profile {
     private String address;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private UserRole userType;
+    private String userType;
 
-    public enum UserRole {
-        CUSTOMER, EMPLOYEE
-    }
-
-    public Profile(String username, String password, String email, String firstname, String lastname, String address, UserRole userType) {
+    public Profile(String username, String password, String email, String firstname, String lastname, String address, String userType) {
         this.username = username;
         this.password = password;
         this.email = email;

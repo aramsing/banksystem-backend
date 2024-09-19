@@ -16,6 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.AuthenticationException;
+import java.util.Optional;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/auth")
@@ -37,17 +40,27 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<Profile> register(@RequestBody RegisterDTO registerDTO) {
+        Profile user = authenticationService.register(registerDTO);
+
+        if (user != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         Profile registeredProfile = new Profile(registerDTO.getUsername(), passwordEncoder.encode(registerDTO.getPassword()), registerDTO.getEmail(), registerDTO.getFirstname(), registerDTO.getLastname(), registerDTO.getAddress(), registerDTO.getUserRole());
         Profile newProfile = profileService.createProfile(registeredProfile);
         return ResponseEntity.status(HttpStatus.OK).body(newProfile);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        int id = profileService.lookupProfileIdByUsername(loginDTO.getUsername());
-        String token = jwtGenerator.generateToken(authentication, id);
-        return ResponseEntity.status(HttpStatus.OK).body(new AuthResponseDTO(token));
+    public ResponseEntity<Void> login(@RequestParam String username, @RequestParam String password) throws AuthenticationException {
+        Profile profile = profileService.getProfileByUsernameAndPassword(username, password);
+        //String token = jwtGenerator.generateToken(SecurityContextHolder.getContext().getAuthentication(), profile.getId());
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String handleAuthenticationException(javax.security.sasl.AuthenticationException e) {
+        return e.getMessage();
     }
 }

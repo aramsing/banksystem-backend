@@ -30,14 +30,14 @@ public class Account {
     private double balance; // should be double for calculations
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private AccountRole accountType; // works without enum
+    //@Enumerated(EnumType.STRING)
+    private String accountType; // works without enum
 
-    public enum AccountRole {
-        CHECKING, SAVINGS
-    }
+//    public enum AccountRole {
+//        CHECKING, SAVINGS
+//    }
 
-    public Account(Profile holder, double balance, AccountRole accountType) {
+    public Account(Profile holder, double balance, String accountType) {
         this.holder = holder;
         this.balance = balance;
         this.accountType = accountType;
