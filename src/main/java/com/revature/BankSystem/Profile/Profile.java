@@ -41,6 +41,11 @@ public class Profile {
     @Column(nullable = false)
     private String userType;
 
+    public Profile(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public Profile(String username, String password, String email, String firstname, String lastname, String address, String userType) {
         this.username = username;
         this.password = password;

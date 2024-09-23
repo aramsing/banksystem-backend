@@ -6,6 +6,7 @@ import com.revature.BankSystem.DTO.RegisterDTO;
 import com.revature.BankSystem.Profile.Profile;
 import com.revature.BankSystem.Profile.ProfileService;
 import com.revature.BankSystem.Security.JwtGenerator;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -40,9 +40,9 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<Profile> register(@RequestBody RegisterDTO registerDTO) {
-        Profile user = authenticationService.register(registerDTO);
+        Profile profile = authenticationService.register(registerDTO);
 
-        if (user != null) {
+        if (profile != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
@@ -52,15 +52,26 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestParam String username, @RequestParam String password) throws AuthenticationException {
-        Profile profile = profileService.getProfileByUsernameAndPassword(username, password);
-        //String token = jwtGenerator.generateToken(SecurityContextHolder.getContext().getAuthentication(), profile.getId());
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
+        try {
+            Profile profile = authenticationService.login(loginDTO);
 
-    @ExceptionHandler(AuthenticationException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public String handleAuthenticationException(javax.security.sasl.AuthenticationException e) {
-        return e.getMessage();
+            if (profile == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            }
+
+            String token = jwtGenerator.generateToken(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()), profile.getId());
+            AuthResponseDTO authResponseDTO = new AuthResponseDTO();
+            authResponseDTO.setAccessToken(token);
+            authResponseDTO.setTokenType("Bearer");
+            authResponseDTO.setExpiresIn(3600);
+            authResponseDTO.setRefreshToken(token);
+            authResponseDTO.setProfile(profile);
+            return ResponseEntity.status(HttpStatus.OK).body(authResponseDTO);
+        }
+
+        catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
     }
 }

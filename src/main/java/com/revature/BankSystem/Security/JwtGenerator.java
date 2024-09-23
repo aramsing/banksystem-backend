@@ -1,5 +1,6 @@
 package com.revature.BankSystem.Security;
 
+import com.revature.BankSystem.Profile.Profile;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,16 +18,15 @@ public class JwtGenerator {
 
     public String generateToken(Authentication authentication, int profileId) {
         String username = authentication.getName();
-        Date currentDate = new Date();
-        Date expireDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
-        String token = Jwts.builder()
+        Date now = new Date();
+        Date expiration = new Date(now.getTime() + SecurityConstants.JWT_EXPIRATION);
+        return Jwts.builder()
                 .setSubject(username)
                 .claim("profileId", profileId)
-                .setIssuedAt(new Date()) // current date
-                .setExpiration(expireDate) // set according to the constant
-                .signWith(key) // hashing algorithm signs this
+                .setIssuedAt(now)
+                .setExpiration(expiration)
+                .signWith(key)
                 .compact();
-        return token;
     }
 
     public String getProfileUsernameFromJwt(String token) {
