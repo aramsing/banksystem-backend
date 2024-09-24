@@ -37,11 +37,6 @@ public class ProfileService {
 
     @Transactional
     public boolean updateProfile(Profile updatedProfile) {
-//        if (updatedProfile.getPassword().length() <= 8) {
-//            throw new InvalidInputException("Password must be at least 8 characters long.");
-//        }
-//
-//        profileRepository.saveAndFlush(updatedProfile);
         boolean exists = profileRepository.existsById(updatedProfile.getId());
 
         if (!exists) {
