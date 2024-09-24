@@ -30,14 +30,36 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Account>> getAccountById(@PathVariable int id) {
-        Optional<Account> account = accountService.getAccountById(id);
+    public ResponseEntity<Account> getAccountById(@PathVariable int id) {
+        Account account = accountService.getAccountById(id);
         return ResponseEntity.status(HttpStatus.OK).body(account);
+    }
+
+    @PutMapping("/{id}/deposit")
+    public ResponseEntity<Account> deposit(@PathVariable int id, @RequestBody Account account) {
+        Account updatedAccount = accountService.deposit(account.getBalance(), account);
+
+        if (updatedAccount == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(updatedAccount);
+    }
+
+    @PutMapping("/{id}/withdraw")
+    public ResponseEntity<Account> withdraw(@PathVariable int id, @RequestBody Account account) {
+        Account updatedAccount = accountService.withdraw(account.getBalance(), account);
+
+        if (updatedAccount == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(updatedAccount);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteAccountById(@PathVariable int id) {
-        boolean isDeleted = accountService.deleteAccount(id);
+        boolean isDeleted = accountService.deleteAccountById(id);
 
         if (isDeleted == false) {
             ResponseEntity.status(HttpStatus.OK).body(false);
