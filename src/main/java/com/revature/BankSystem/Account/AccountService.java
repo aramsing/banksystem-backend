@@ -45,12 +45,16 @@ public class AccountService {
     }
 
     @Transactional
-    public Account withdraw(double amount, Account account) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Cannot withdraw negative amount");
+    public Account withdraw(double amountToWithdraw, Account account) {
+        if (amountToWithdraw < 0) {
+            throw new IllegalArgumentException("Withdrawal amount cannot be negative");
         }
 
-        account.setBalance(account.getBalance() - amount);
+        if (amountToWithdraw > account.getBalance()) {
+            throw new IllegalArgumentException("Insufficient funds"); // checks if the amount to withdraw is greater than the balance
+        }
+
+        account.setBalance(account.getBalance() - amountToWithdraw);
         return accountRepository.save(account);
     }
 
