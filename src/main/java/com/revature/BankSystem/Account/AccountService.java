@@ -6,7 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
+/** SERVICE CLASS DOCUMENTATION
+ * @author Arjun Ramsinghani
+ * The Service class is used to define the business logic coming to the backend by use of Spring Boot and will communicate with the database through Spring Data.
+ * Instructions on how each method should interact are within each method call.
+ */
 
 @Service
 public class AccountService {

@@ -6,18 +6,21 @@ import com.revature.BankSystem.DTO.RegisterDTO;
 import com.revature.BankSystem.Profile.Profile;
 import com.revature.BankSystem.Profile.ProfileService;
 import com.revature.BankSystem.Security.JwtGenerator;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+
+/** CONTROLLER CLASS DOCUMENTATION
+ * @author Arjun Ramsinghani
+ * The Controller class will interact with the front end part of our application and send the data coming through there through our Service class for processing and validation.
+ * Instructions on how each method should interact are within each method call.
+ */
 
 @CrossOrigin
 @RestController
@@ -80,14 +83,14 @@ public class AuthenticationController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // return a 401 unauthorized response if a user is not found
             }
 
-            String token = jwtGenerator.generateToken(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()), profile.getId()); // generate a JWT token for the user using the username, password, and id
+            String token = jwtGenerator.generateToken(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()), profile.getId()); // generates a JWT token for the user using the username, password, and id
             AuthResponseDTO authResponseDTO = new AuthResponseDTO();
             authResponseDTO.setAccessToken(token); // sets the JWT token in the AuthResponseDTO object
-            authResponseDTO.setTokenType("Bearer"); // sets the token type to "Bearer"
-            authResponseDTO.setExpiresIn(3600); // sets the expiration time in seconds
-            authResponseDTO.setRefreshToken(token); // sets the refresh token to the same JWT token
+            authResponseDTO.setTokenType("Bearer "); // sets the token type to "Bearer"
+            authResponseDTO.setExpiresIn(3600); // sets the expiration time in seconds, which is 1 hr
+            authResponseDTO.setRefreshToken(token); // sets the new token once the expiration time is reached on the original or previous token
             authResponseDTO.setProfile(profile); // sets the profile in the AuthResponseDTO object
-            return ResponseEntity.status(HttpStatus.OK).body(authResponseDTO); // return the AuthResponseDTO object containing the JWT token
+            return ResponseEntity.status(HttpStatus.OK).body(authResponseDTO); // return an entire AuthResponseDTO object
         }
 
         catch (AuthenticationException e) {

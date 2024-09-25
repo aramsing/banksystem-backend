@@ -7,6 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/** MODEL CLASS DOCUMENTATION
+ * @author Arjun Ramsinghani
+ * The model class defines our data and what it should contain as well as implement the database via the Spring Boot annotations.
+ * All of our products that are created and sent to the database will have all attributes from this class.
+ */
 
 // LOMBOK ANNOTATIONS
 @Data // includes ToString, EqualsAndHashCode, Getter, and Setter Annotations

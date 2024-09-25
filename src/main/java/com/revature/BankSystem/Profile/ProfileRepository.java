@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/** REPOSITORY CLASS DOCUMENTATION
+ * @author Arjun Ramsinghani
+ * The Repository will use Jpa Repository to use its methods for database connections therefore no code will be written here unless we need something that is not there.
+ */
+
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Integer> {
     /**

@@ -6,6 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/** CONTROLLER CLASS DOCUMENTATION
+ * @author Arjun Ramsinghani
+ * The Controller class will interact with the front end part of our application and send the data coming through there through our Service class for processing and validation.
+ * Instructions on how each method should interact are within each method call.
+ */
+
 @CrossOrigin
 @RestController
 @RequestMapping("/profiles")

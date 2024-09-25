@@ -26,35 +26,49 @@ public class SecurityConfig {
     /**
      * This method is a filter for our Security
      * @param http
-     * @return
+     * @return a new security filter
      * @throws Exception
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(requests -> requests
+        http.authorizeHttpRequests(requests -> requests // restricts access based on certain incoming requests
                 .anyRequest()
-                .permitAll())
-                .csrf(AbstractHttpConfigurer::disable)
+                .permitAll()) // allows all incoming requests
+                .csrf(AbstractHttpConfigurer::disable) // disables cross site request forgery
                 .exceptionHandling(exceptionHandling -> exceptionHandling
-                        .authenticationEntryPoint(authEntryPoint))
+                        .authenticationEntryPoint(authEntryPoint)) // handles authentication exceptions
                 .sessionManagement(sessionManagement -> sessionManagement
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // disables session management
 
-        http.addFilterBefore((Filter) jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore((Filter) jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // processes JWT tokens before the standard class
 
         return http.build();
     }
 
+    /**
+     * This method is used to configure the authentication manager.
+     * @param authenticationConfiguration
+     * @return a new authentication configuration
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager(); // manages the authentication process
     }
 
+    /**
+     * The password encoder is used to encode passwords.
+     * @return a new password that is encoded
+     */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * This method is used to configure the JWT authentication filter.
+     * @return a new JWT authentication filter
+     */
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
