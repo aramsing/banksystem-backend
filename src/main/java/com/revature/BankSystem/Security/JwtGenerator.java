@@ -25,8 +25,8 @@ public class JwtGenerator {
      * The key is then signed with the {@link SignatureAlgorithm#HS256} algorithm.
      * The builder is then returned to the method as the created token.
      *
-     * @param authentication the authentication object to generate the token from
-     * @param profileId the profileId to include in the generated token
+     * @param authentication - the authentication object to generate the token from
+     * @param profileId - the profileId to include in the generated token
      * @return the generated JWT token
      */
     public String generateToken(Authentication authentication, int profileId) {
@@ -44,7 +44,7 @@ public class JwtGenerator {
 
     /**
      * Gets the username from the given JWT token.
-     * @param token the JWT token to extract the username from
+     * @param token - the JWT token to extract the username from
      * @return the username if the token is valid, or throws an {@link AuthenticationCredentialsNotFoundException} if the token is invalid
      */
     public String getProfileUsernameFromJwt(String token) {
@@ -54,7 +54,7 @@ public class JwtGenerator {
 
     /**
      * Validates a given JWT token.
-     * @param token the JWT token to validate
+     * @param token - the JWT token to validate
      * @return true if the token is valid, false otherwise
      * @throws AuthenticationCredentialsNotFoundException if the token is invalid or expired
      */

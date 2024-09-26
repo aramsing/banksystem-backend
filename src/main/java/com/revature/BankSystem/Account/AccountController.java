@@ -1,5 +1,6 @@
 package com.revature.BankSystem.Account;
 
+import com.revature.BankSystem.DTO.TransactionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,11 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    /**
+     *
+     * @param account
+     * @return
+     */
     @PostMapping
     public ResponseEntity<Account> postCreateAccount(@RequestBody Account account) {
         Account newAccount = accountService.createAccount(account);
@@ -33,15 +39,26 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newAccount);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable int id) {
         Account account = accountService.getAccountById(id);
         return ResponseEntity.status(HttpStatus.OK).body(account);
     }
 
+    /**
+     *
+     * @param id
+     * @param amount
+     * @return
+     */
     @PutMapping("/{id}/deposit")
-    public ResponseEntity<Account> deposit(@PathVariable int id, @RequestBody Account account) {
-        Account updatedAccount = accountService.deposit(account.getBalance(), account);
+    public ResponseEntity<Account> deposit(@PathVariable int id, @RequestBody TransactionDTO amount) {
+        Account updatedAccount = accountService.deposit(amount.getAmount(), id);
 
         if (updatedAccount == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -50,9 +67,15 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedAccount);
     }
 
+    /**
+     *
+     * @param id
+     * @param amount
+     * @return
+     */
     @PutMapping("/{id}/withdraw")
-    public ResponseEntity<Account> withdraw(@PathVariable int id, @RequestBody Account account) {
-        Account updatedAccount = accountService.withdraw(account.getBalance(), account);
+    public ResponseEntity<Account> withdraw(@PathVariable int id, @RequestBody TransactionDTO amount) {
+        Account updatedAccount = accountService.withdraw(amount.getAmount(), id);
 
         if (updatedAccount == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -61,6 +84,11 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedAccount);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteAccountById(@PathVariable int id) {
         boolean isDeleted = accountService.deleteAccountById(id);

@@ -25,8 +25,8 @@ public class ProfileController {
 
     /**
      * Updates the given profile with the given information.
-     * @param profile The profile to update.
-     * @return true if the profile was updated successfully, false otherwise.
+     * @param profile - the profile to update
+     * @return true if the profile was updated successfully, false otherwise
      */
     @PutMapping
     public ResponseEntity<Boolean> putUpdateProfile(@Valid @RequestBody Profile profile) {
@@ -42,7 +42,7 @@ public class ProfileController {
     /**
      * Deletes the profile with the given id.
      * @param id the id of the profile to delete
-     * @return true if the profile was deleted successfully, false otherwise.
+     * @return true if the profile was deleted successfully, false otherwise
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteProfileById(@PathVariable int id) {

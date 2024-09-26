@@ -37,9 +37,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      *
      * If the token is invalid or not found, the request is passed to the next filter in the chain without any authentication.
      *
-     * @param request  the request to filter
-     * @param response the response to filter
-     * @param filterChain the chain of filters to continue with
+     * @param request - the request to filter
+     * @param response - the response to filter
+     * @param filterChain - the chain of filters to continue with
      * @throws ServletException if there is a problem with the filter
      * @throws IOException      if there is a problem with the request or response
      */
@@ -63,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * The Authorization header should be in the format "Bearer <token>".
      * If the header is not found or is not in the correct format, null is returned.
      *
-     * @param request the request to get the JWT token from
+     * @param request - the request to get the JWT token from
      * @return the JWT token if found, or null otherwise
      */
     private String getJWTFromRequest(HttpServletRequest request) {

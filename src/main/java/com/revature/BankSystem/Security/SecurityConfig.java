@@ -25,7 +25,7 @@ public class SecurityConfig {
 
     /**
      * This method is a filter for our Security
-     * @param http
+     * @param http - the http security chain
      * @return a new security filter
      * @throws Exception
      */
@@ -47,7 +47,7 @@ public class SecurityConfig {
 
     /**
      * This method is used to configure the authentication manager.
-     * @param authenticationConfiguration
+     * @param authenticationConfiguration - the authentication configuration
      * @return a new authentication configuration
      * @throws Exception
      */

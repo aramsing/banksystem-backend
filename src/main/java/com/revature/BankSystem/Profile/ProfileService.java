@@ -24,9 +24,9 @@ public class ProfileService {
     /**
      * Creates a new profile with the given information and adds it to the database.
      * The password must be at least 8 characters long.
-     * @param profile The profile information to be added to the database
-     * @return The newly added profile
-     * @throws InvalidInputException If the password is less than 8 characters long
+     * @param profile - the profile information to be added to the database
+     * @return the newly added profile
+     * @throws InvalidInputException if the password is less than 8 characters long
      */
     public Profile createProfile(Profile profile) {
         if (profile.getPassword().length() <= 8) {
@@ -38,7 +38,7 @@ public class ProfileService {
 
     /**
      * Gets a profile by the given id.
-     * @param id the profile id to search for
+     * @param id - the profile id to search for
      * @return the profile with the given id
      * @throws DataNotFoundException if no profile with the given id is found
      */
@@ -48,7 +48,7 @@ public class ProfileService {
 
     /**
      * Gets a profile by the given username.
-     * @param username the username to search for
+     * @param username - the username to search for
      * @return the profile with the given username
      * @throws DataNotFoundException if no profile with the given username is found
      */
@@ -58,7 +58,7 @@ public class ProfileService {
 
     /**
      * Looks up the profile id for the given username.
-     * @param username the username to look up
+     * @param username - the username to look up
      * @return the profile id associated with the given username
      * @throws DataNotFoundException if no profile with the given username is found
      */
@@ -68,7 +68,7 @@ public class ProfileService {
 
     /**
      * Updates the given profile with the given information.
-     * @param updatedProfile the profile to update
+     * @param updatedProfile - the profile to update
      * @return true if the profile was updated successfully, false otherwise
      * @throws DataNotFoundException if no profile with the given id is found
      * @throws InvalidInputException if the password is less than 8 characters long
@@ -91,7 +91,7 @@ public class ProfileService {
 
     /**
      * Deletes the profile with the given id.
-     * @param id the id of the profile to delete
+     * @param id - the id of the profile to delete
      * @return true if the profile was deleted successfully, false otherwise
      */
     public boolean deleteProfileById(int id) {

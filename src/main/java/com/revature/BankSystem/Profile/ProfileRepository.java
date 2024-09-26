@@ -14,9 +14,8 @@ import java.util.Optional;
 public interface ProfileRepository extends JpaRepository<Profile, Integer> {
     /**
      * Finds a profile by the given username.
-     *
-     * @param username The username.
-     * @return An optional containing the profile if found, or an empty optional if no such profile exists.
+     * @param username - the username
+     * @return an optional containing the profile if found, or an empty optional if no such profile exists
      */
     Optional<Profile> findByUsername(String username);
 }

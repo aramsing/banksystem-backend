@@ -47,9 +47,8 @@ public class AuthenticationController {
      * If the user is successfully registered, it returns the newly created user in the response body.
      * If the user is not registered, it returns a 400 bad request response.
      *
-     * @param registerDTO a RegisterDTO object containing the user's information
-     * @return a ResponseEntity containing the newly created user if the registration is successful, or a 400 bad request
-     * response if the registration is not successful
+     * @param registerDTO - a RegisterDTO object containing the user's information
+     * @return a ResponseEntity containing the newly created user if the registration is successful, or a 400 bad request response if the registration is not successful
      */
     @PostMapping("/register")
     public ResponseEntity<Profile> register(@RequestBody RegisterDTO registerDTO) {
@@ -70,9 +69,8 @@ public class AuthenticationController {
      * If the user is successfully logged in, it returns an AuthResponseDTO object containing the generated JWT token in the response body.
      * If the user is not logged in, it returns a 401 unauthorized response.
      *
-     * @param loginDTO a LoginDTO object containing the username and password.
-     * @return a ResponseEntity containing the generated JWT token if the login is successful, or a 401 unauthorized
-     * response if the login is not successful.
+     * @param loginDTO - a LoginDTO object containing the username and password
+     * @return a ResponseEntity containing the generated JWT token if the login is successful, or a 401 unauthorized response if the login is not successful
      */
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {

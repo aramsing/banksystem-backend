@@ -38,8 +38,8 @@ public class AuthenticationService {
      * The method first looks for the user in the database. If the user is found, the method returns the user.
      * If the user is not found, the method returns null meaning that we can register the user.
      *
-     * @param registerDTO The RegisterDTO object containing the information of the user to be registered.
-     * @return The Profile object of the user if the registration is successful, or null if the registration is not successful.
+     * @param registerDTO - the RegisterDTO object containing the information of the user to be registered
+     * @return the Profile object of the user if the registration is successful, or null if the registration is not successful
      */
     public Profile register(RegisterDTO registerDTO) {
         int id;
@@ -59,9 +59,9 @@ public class AuthenticationService {
      * It takes a LoginDTO as input and returns a Profile object if the login is successful.
      * If the login is not successful, it throws an AuthenticationException.
      *
-     * @param loginDTO The LoginDTO object containing the username and password.
-     * @return The Profile object of the user if the login is successful.
-     * @throws AuthenticationException If the login is not successful.
+     * @param loginDTO - The LoginDTO object containing the username and password
+     * @return the Profile object of the user if the login is successful
+     * @throws AuthenticationException If the login is not successful
      */
     public Profile login(LoginDTO loginDTO) throws AuthenticationException {
         String username = loginDTO.getUsername();
