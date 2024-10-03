@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh "docker run -d -p 8080:8080 arjunramsinghani/banksystem-backend:1.0.0" // e flag for environment variables and for appliction.yaml file to have context
+                sh "docker run -d -p 9999:8080 arjunramsinghani/banksystem-backend:1.0.0" // e flag for environment variables and for appliction.yaml file to have context
             }
         }
     }
