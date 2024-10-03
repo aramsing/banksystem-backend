@@ -3,11 +3,15 @@ pipeline {
     // will find any available agent to perform any action (stage)
     agent any
 
+    environment {
+        dockerHub = credentials('dockerhub')     // credentials id in jenkins
+    }
 
     // define stages
     stages {
         stage('Build & Deliver') {
             steps {
+                sh "docker login -u ${env.dockerHubUsername} -p ${env.dockerHubPassword}"
                 sh "docker build -t arjunramsinghani/banksystem-backend:1.0.0 ."
                 sh "docker push arjunramsinghani/banksystem-backend:1.0.0" // push image to dockerhub
             }
