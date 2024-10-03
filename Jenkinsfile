@@ -4,7 +4,7 @@ pipeline {
     agent any
 
     environment {
-        dockerHub = credentials('dockerhub')     // credentials id in jenkins
+        dockerHub = credentials('dockerHub')     // credentials id in jenkins
     }
 
     // define stages
