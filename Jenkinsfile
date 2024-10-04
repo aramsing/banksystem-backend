@@ -6,7 +6,7 @@ pipeline {
     environment {
         dockerHub = credentials('dockerHub') // credentials id in jenkins
         DBPASS = credentials('DBPASS')
-        CONTAINER = "banksystem-backend-server"
+        //CONTAINER = "banksystem-backend-server"
     }
 
     // define stages
