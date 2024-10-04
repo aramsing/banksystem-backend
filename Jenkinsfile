@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Build & Deliver') {
             steps {
-                sh "docker login -u $dockerHub_USR -p $dockerHub_PSW"
+                sh "docker login -u ${dockerHub_USR} -p ${dockerHub_PSW}"
                 sh "docker build -t arjunramsinghani/banksystem-backend:1.0.0 ."
                 sh "docker push arjunramsinghani/banksystem-backend:1.0.0" // push image to dockerhub
             }
