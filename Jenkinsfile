@@ -4,7 +4,8 @@ pipeline {
     agent any
 
     environment {
-        dockerHub = credentials('dockerHub')     // credentials id in jenkins
+        dockerHub = credentials('dockerHub') // credentials id in jenkins
+        DBPASS = credentials('DBPASS')
     }
 
     // define stages
@@ -18,7 +19,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh "docker run -d -p 9999:8080 arjunramsinghani/banksystem-backend:1.0.0" // e flag for environment variables and for appliction.yaml file to have context
+                sh "docker run -d -p 9999:8080 arjunramsinghani/banksystem-backend:1.0.0 -e DBPASS=$DBPASS" // e flag for environment variables and for appliction.yaml file to have context
             }
         }
     }
