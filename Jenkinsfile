@@ -30,7 +30,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh "docker run --name ${CONTAINER} -e DBPASS=${DBPASS} -d -p 8888:9999 arjunramsinghani/banksystem-backend:1.0.0" // e flag for environment variables and for appliction.yaml file to have context
+                sh "docker run --name ${CONTAINER} -e DBPASS=${DBPASS} -d -p 8888:8080 arjunramsinghani/banksystem-backend:1.0.0" // e flag for environment variables and for appliction.yaml file to have context
             }
         }
     }
